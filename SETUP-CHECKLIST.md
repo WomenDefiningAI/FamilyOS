@@ -21,8 +21,12 @@ Cowork handles the rest. Check these off as it walks you through them:
 - [ ] Evening Memory — Daily, 9 PM — prompt from `skills/memory-consolidation.md`
 - [ ] Weekly OS Review — Weekly, Sunday 6 PM — prompt from `skills/weekly-review.md`
 
+**Pre-approve tool permissions:**
+- [ ] Click **Run now** on each of the four tasks in Cowork → Scheduled
+- [ ] Approve Gmail / Calendar / Slack / file access when prompted
+
 **Cowork project** (Projects → + New Project):
-- [ ] Name: FamilyOS — paste project instructions from README.md Step 6
+- [ ] Name: FamilyOS — paste project instructions from README.md Step 7
 
 **Cleanup:**
 - [ ] Delete `BOOTSTRAP.md` once setup is confirmed working

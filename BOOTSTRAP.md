@@ -66,9 +66,16 @@ Ask one topic at a time. After the interview:
    - Household Inbox — hourly — prompt: contents of skills/slack-inbox.md
    - Evening Memory — daily at 9:00 PM — prompt: contents of skills/memory-consolidation.md
    - Weekly OS Review — weekly on Sunday at 6:00 PM — prompt: contents of skills/weekly-review.md
-5. Walk me through creating a FamilyOS project in Claude Desktop →
-   Projects → + New Project with the instructions from README.md Step 6.
-6. When everything is confirmed working, tell me to delete BOOTSTRAP.md
+5. Tell me to go to Cowork → Scheduled, find each of the four tasks,
+   and click "Run now" on each one. When prompted, I should approve the
+   tools it asks for (Gmail / Calendar / Slack / file access). This
+   pre-approves those tools so future automated runs don't silently
+   pause waiting for permission. Takes two minutes. The Morning Brief
+   in particular — running it now will also confirm the connectors are
+   actually working.
+6. Walk me through creating a FamilyOS project in Claude Desktop →
+   Projects → + New Project with the instructions from README.md Step 7.
+7. When everything is confirmed working, tell me to delete BOOTSTRAP.md
    from my folder — it's only needed for setup.
 ```
 
