@@ -390,6 +390,25 @@ FamilyOS/
 
 ---
 
+## About Women Defining AI
+
+FamilyOS is built and maintained by [Women Defining AI](https://www.womendefiningai.org/) — a nonprofit educating the public on AI and promoting inclusive technological advancement. The community is 1,000+ strong, mostly women and nonbinary professionals from absolute beginners to AI leaders, learning through progressive AI Foundations courses, workshops, and peer support. FamilyOS is one of the things we build to show what practical, personal AI looks like when it's shaped around real lives.
+
+---
+
+## Contributing
+
+Contributions are welcome — whether it's a bug fix, a new skill, or a documentation improvement.
+
+1. **Check existing [issues](https://github.com/WomenDefiningAI/FamilyOS/issues)** to see if your idea or bug is already being tracked.
+2. **Open an issue** to discuss larger changes before starting work, so we can align on direction.
+3. **Fork** the repository, create a feature branch, and commit your changes with clear messages.
+4. **Submit a pull request** — include a short description of what changed and why, and link to the related issue.
+
+For questions, partnership inquiries, or anything that doesn't fit an issue, email [info@womendefiningai.org](mailto:info@womendefiningai.org).
+
+---
+
 ## Credit
 
 The scaffold pattern — separate setup layer, interview-driven tailoring, copyable workspace — was directly inspired by [tradclaw](https://github.com/ChatPRD/tradclaw) by [@clairevo](https://x.com/clairevo) and [clawchief](https://github.com/snarktank/clawchief) by Ryan Carson. FamilyOS adapts the same idea for Claude Cowork's native runtime — no OpenClaw infrastructure, no servers, no deployment.
