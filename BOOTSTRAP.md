@@ -93,7 +93,7 @@ When Cowork tells you setup is complete and to delete this file — delete it. I
 
 ## Your daily workflow after setup
 
-**Morning** — check the brief in your Cowork scheduled task history.
+**Morning** — read the brief in your Slack inbox channel.
 
 **During the day** — drop notes in your Slack inbox channel. Filed within the hour.
 

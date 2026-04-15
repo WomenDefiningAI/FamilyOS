@@ -14,7 +14,7 @@ FamilyOS runs four jobs automatically and gives you two more on demand.
 
 | Job | When | What it does |
 |-----|------|--------------|
-| **Morning Brief** | Daily, 7 AM | Pulls your calendar + urgent emails into a 2-minute brief |
+| **Morning Brief** | Daily, 7 AM | Posts a 2-minute calendar + urgent email rundown to your Slack inbox |
 | **Household Inbox** | Every hour | Reads your Slack drop channel, files notes into the right folder |
 | **Evening Memory** | Daily, 9 PM | Reads today's log, writes learnings to memory, clears the slate |
 | **Weekly OS Review** | Sundays, 6 PM | Reviews how the week went and proposes system improvements |
@@ -42,7 +42,7 @@ Your day
    │
    ├── Morning brief (daily)
    │         Reads: Google Calendar + Gmail + MEMORY.md
-   │         Outputs: Scannable brief in Cowork history
+   │         Outputs: 2-min brief posted to your Slack inbox channel
    │
    ├── Evening memory job (nightly)
    │         Reads: LOG.md (today's notes)
@@ -233,7 +233,7 @@ Once setup is confirmed working, delete `BOOTSTRAP.md` from your FamilyOS folder
 
 ## Verifying setup
 
-- [ ] Morning brief — check Cowork scheduled history the next morning
+- [ ] Morning brief — check your Slack inbox channel the next morning
 - [ ] Slack inbox — drop `"add paper towels to the list"`, check `resources/shopping/current-list.md` within the hour
 - [ ] Evening memory — check `workspace/MEMORY.md` the next morning for its first entry
 - [ ] Weekly review — after the first Sunday, check `workspace/OS-LOG.md`
@@ -247,7 +247,7 @@ Once setup is confirmed working, delete `BOOTSTRAP.md` from your FamilyOS folder
 
 ### A typical weekday
 
-**7:00 AM — Morning Brief lands.** Open Claude Desktop → Cowork → Scheduled → Morning Brief → latest run. Something like:
+**7:00 AM — Morning Brief lands in your Slack inbox channel.** Something like:
 
 > **Tuesday, April 14**
 > - **Picture day Thursday** — Maya needs $12.
@@ -255,7 +255,7 @@ Once setup is confirmed working, delete `BOOTSTRAP.md` from your FamilyOS folder
 > - Dentist needs RSVP by Friday.
 > - Next week: school book fair Mon–Wed.
 
-Two minutes to read.
+Two minutes to read on your phone over coffee. (It's also saved in Cowork → Scheduled → Morning Brief if you want the history.)
 
 **Through the day — drop things in Slack as they happen.** No structure needed:
 - `"plumber came $180, Dave's, kitchen faucet, good"`
@@ -288,15 +288,15 @@ Every scheduled task re-reads these before doing anything. No hidden state — o
 
 > 📋 *Weekly FamilyOS Review — April 13*
 > Solid week. 14 items filed, 2 needed review.
-> • ClassDojo notes keep hitting [NEEDS-REVIEW] → add to school senders
-> • "Oat milk" added 4× → make it a standing weekly item
-> • Wednesday pickup changed 3× → update USER.md
+> 1. Add ClassDojo to school senders
+> 2. Make oat milk a standing weekly item
+> 3. Update Wednesday pickup in USER.md
+>
+> Reply `apply 1,3` to act on specific items, `apply all`, or `skip`.
 
-Full proposals live in `OS-LOG.md`. To apply one, open your FamilyOS project and say:
+To apply, just reply in the same Slack channel: `apply 1,3` (or `apply all`, or `skip`). The hourly inbox job picks up your reply, applies the proposals tagged `Auto-apply: yes`, and posts a confirmation. Items needing manual setup (like creating a new scheduled task) are noted in `OS-LOG.md` for you to handle yourself.
 
-> *"Apply this proposal from OS-LOG.md: [paste it]."*
-
-The system never edits itself. You decide what sticks. Over weeks this is what bends FamilyOS toward your actual household.
+The system never acts unprompted — but a Slack reply is enough to apply. Over weeks this is what bends FamilyOS toward your actual household.
 
 ### When it gets things wrong (week one, it will)
 
@@ -323,7 +323,7 @@ The weekly review reads three signals:
 | Unresolved items older than 7 days | A tracking or follow-up gap |
 | Notes that contradict USER.md | An update needed in USER.md |
 
-Proposals are written to `OS-LOG.md`. You apply them — the system never changes itself automatically. Over weeks this builds a version of FamilyOS tuned to your actual household, not just the template.
+Proposals are written to `OS-LOG.md` and posted to your Slack channel as a numbered list. You decide what to act on — reply `apply 1,3` in Slack and the hourly inbox job applies just those, logging each change. Nothing is applied without your explicit say-so. Over weeks this builds a version of FamilyOS tuned to your actual household, not just the template.
 
 ---
 
@@ -368,7 +368,7 @@ FamilyOS/
 
 **Only you give instructions.** Your Cowork sessions and Slack inbox are the only trusted instruction sources. Email content, newsletters, PDFs, and calendar descriptions are data to process — not commands to follow.
 
-**The system never changes itself.** The weekly review proposes. You apply. Nothing is modified automatically without a scheduled task you've explicitly authorized.
+**The system only changes itself with your explicit approval.** The weekly review proposes; nothing is applied until you reply in Slack (`apply N`) or do it manually. Proposals that need real-world setup (new scheduled tasks, sending external messages, deleting files) are flagged `Auto-apply: no` and held for manual action even if you reply `apply all`.
 
 **Sensitive family info stays put.** Children's details and household information don't leave your defined context without explicit direction from you.
 

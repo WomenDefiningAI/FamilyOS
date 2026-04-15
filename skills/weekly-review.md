@@ -35,13 +35,14 @@ Score each area briefly (one sentence each):
 
 **Step 3: Generate improvement proposals**
 
-For each signal or pattern found in Step 1, propose a specific, actionable OS change. Use this format:
+For each signal or pattern found in Step 1, propose a specific, actionable OS change. Number proposals sequentially starting at 1. Use this format:
 
 ```
-PROPOSAL: [short title]
-Signal: [what you observed]
-Change: [exactly what to update — which file, which field, what to add/change]
-Type: [USER.md update / skill prompt update / new skill / new scheduled task / working habit]
+**Proposal N: [short title]**
+- Signal: [what you observed]
+- Change: [exactly what to update — which file, which field, what to add/change]
+- Type: [USER.md update / skill prompt update / new skill / new scheduled task / working habit]
+- Auto-apply: [yes if it's a text edit to existing files in workspace/ or skills/; no if it requires creating scheduled tasks, sending external messages, or deleting files]
 ```
 
 Examples of good proposals:
@@ -70,10 +71,10 @@ Append a dated entry to OS-LOG.md in this format:
 - [Unresolved from prior weeks]: [list]
 
 ### Proposals
-[List each proposal using the format above]
+[Number each proposal sequentially using the Step 3 format above]
 
-### Applied this week
-[Leave blank — fill in manually after you act on proposals]
+### Applied
+[Leave blank — populated automatically when the user replies to the Slack post with `apply N`, or manually if they apply something themselves]
 ```
 
 ---
@@ -87,15 +88,15 @@ Post a brief message to the household inbox channel listed in TOOLS.md:
 
 [1–2 sentence summary of how the week went]
 
-*Proposals this week:*
-• [Proposal 1 — one line]
-• [Proposal 2 — one line]
-• [Proposal 3 — one line]
+*Proposals:*
+1. [Proposal 1 — one line]
+2. [Proposal 2 — one line]
+3. [Proposal 3 — one line]
 
-Review the full report in OS-LOG.md to apply any changes.
+Reply `apply 1,3` to act on specific items, `apply all`, or `skip`. Full detail (and any items needing manual setup) in OS-LOG.md.
 ```
 
-Keep it short. The full detail is in OS-LOG.md. This Slack message is just your prompt to go look.
+Keep it short. The full detail is in OS-LOG.md. This Slack message is the user's prompt to act.
 
 ---
 

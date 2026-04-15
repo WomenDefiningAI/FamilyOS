@@ -32,7 +32,7 @@ Cowork handles the rest. Check these off as it walks you through them:
 - [ ] Delete `BOOTSTRAP.md` once setup is confirmed working
 
 **Verify:**
-- [ ] Morning brief appeared in Cowork history
+- [ ] Morning brief appeared in your Slack inbox channel
 - [ ] Test Slack drop filed to the right resource file within an hour
 - [ ] MEMORY.md has first entry after evening job runs
 - [ ] OS-LOG.md has first entry after first Sunday
