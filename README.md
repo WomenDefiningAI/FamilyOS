@@ -170,7 +170,7 @@ Go to **Claude Desktop → Customize → Connectors** and enable:
 1. In Slack, click **+ Add channels → Create a channel**
 2. Name it `#family-inbox` (or your preference)
 3. Set it to **Private**
-4. You're the only member — that's correct
+4. You can keep it solo, or add other adults in the household so they can drop notes and see the morning brief and weekly review too
 
 Then update `workspace/TOOLS.md` with the channel name (Cowork can do this for you).
 
