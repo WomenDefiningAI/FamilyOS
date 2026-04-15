@@ -13,37 +13,34 @@
 
 ---
 
-## Step 1 — Clone the repo to your computer
+## Step 1 — Create a folder for your OS
 
-Open Terminal (Mac) or Command Prompt (Windows) and run:
+Make an empty folder on your computer where FamilyOS will live. For example:
 
-```bash
-git clone https://github.com/[OWNER]/FamilyOS.git ~/Documents/FamilyOS
-```
+- Mac: `~/Documents/FamilyOS`
+- Windows: `Documents\FamilyOS`
 
-Or use the GitHub Desktop app — click **Code → Open with GitHub Desktop**.
-
-This creates `~/Documents/FamilyOS/` with the full folder structure already in place.
+No terminal, no git, no downloads — just an empty folder. Cowork handles the rest.
 
 ---
 
-## Step 2 — Set your working folder in Cowork
+## Step 2 — Open the folder in Cowork and paste this prompt
 
 1. Open Claude Desktop → click **Cowork** at the top
-2. Click the **folder icon** in the sidebar
-3. Navigate to `Documents/FamilyOS/workspace/` and select it
+2. Click the **folder icon** in the sidebar → **Choose Folder** → select the empty folder you just created
+3. Start a new Cowork session and paste the prompt below
 
----
-
-## Step 3 — Paste this prompt into Cowork
-
-This single prompt starts an interview that customizes FamilyOS for your household and walks you through the rest of setup step by step.
+This single prompt pulls the FamilyOS template into your folder, runs an interview to customize it to your household, and sets up the rest (including scheduling the recurring tasks for you) step by step.
 
 ```
-Read the FamilyOS household manager at https://github.com/[OWNER]/FamilyOS
+I want to set up FamilyOS, the household manager, in this folder.
 
-Start with BOOTSTRAP.md so you understand the setup process.
-Then read SOUL.md, USER.md, and TOOLS.md from my working folder.
+The template is at https://github.com/WomenDefiningAI/FamilyOS
+
+1. Copy all of the template files from that repo into this folder so we
+   have README.md, BOOTSTRAP.md, SETUP-CHECKLIST.md, skills/, and
+   workspace/ locally.
+2. Read workspace/SOUL.md, workspace/USER.md, and workspace/TOOLS.md.
 
 Now run the onboarding interview with me. Ask about:
 - Who's in my household (adults and children — ages, schools, grades)
@@ -56,16 +53,23 @@ Now run the onboarding interview with me. Ask about:
 
 Ask one topic at a time. After the interview:
 
-1. Rewrite USER.md with everything I told you. Show me the result and confirm.
-2. Walk me through enabling these connectors in Claude Desktop → Customize → Connectors: Gmail, Google Calendar, Slack.
-3. Walk me through creating my #family-inbox Slack channel and updating TOOLS.md with the name.
-4. Walk me through creating these four scheduled tasks in Cowork → Scheduled → + New Task:
-   - Morning Brief (daily, 7 AM) — prompt from skills/morning-brief.md
-   - Household Inbox (hourly) — prompt from skills/slack-inbox.md
-   - Evening Memory (daily, 9 PM) — prompt from skills/memory-consolidation.md
-   - Weekly OS Review (weekly, Sunday 6 PM) — prompt from skills/weekly-review.md
-5. Walk me through creating a FamilyOS project in Claude Desktop → Projects → + New Project with the instructions from README.md Step 8.
-6. When everything is confirmed working, tell me to delete BOOTSTRAP.md from my workspace folder — it's only needed for setup.
+1. Rewrite workspace/USER.md with everything I told you. Show me the
+   result and confirm.
+2. Walk me through enabling these connectors in Claude Desktop →
+   Customize → Connectors: Gmail, Google Calendar, Slack.
+3. Walk me through creating my Slack household inbox channel and
+   updating workspace/TOOLS.md with the name.
+4. Use the schedule skill to create these four scheduled tasks for me —
+   don't walk me through the UI, schedule them directly, then confirm
+   each one was created:
+   - Morning Brief — daily at 7:00 AM — prompt: contents of skills/morning-brief.md
+   - Household Inbox — hourly — prompt: contents of skills/slack-inbox.md
+   - Evening Memory — daily at 9:00 PM — prompt: contents of skills/memory-consolidation.md
+   - Weekly OS Review — weekly on Sunday at 6:00 PM — prompt: contents of skills/weekly-review.md
+5. Walk me through creating a FamilyOS project in Claude Desktop →
+   Projects → + New Project with the instructions from README.md Step 6.
+6. When everything is confirmed working, tell me to delete BOOTSTRAP.md
+   from my folder — it's only needed for setup.
 ```
 
 ---
@@ -76,7 +80,7 @@ The agent handles the rest — one step at a time, in plain language.
 
 **Total setup time: about 20–30 minutes.**
 
-When Cowork tells you setup is complete and to delete this file — delete it. It won't be needed again and keeping workspace/ clean matters.
+When Cowork tells you setup is complete and to delete this file — delete it. It won't be needed again and keeping your folder clean matters.
 
 ---
 

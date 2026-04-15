@@ -70,53 +70,43 @@ The household brain lives in `workspace/` — plain markdown files on your machi
 | **Gmail** | For school email triage and morning brief |
 | **Google Calendar** | For morning brief and schedule awareness |
 | **Slack** | Free tier is fine — you'll use one private channel |
-| **Git** | For cloning the repo — [git-scm.com](https://git-scm.com) or [GitHub Desktop](https://desktop.github.com) |
 
 ---
 
 ## Getting started
 
-### Step 1 — Clone the repo
+### Step 1 — Create a folder for your OS
 
-Open Terminal (Mac) or Command Prompt (Windows):
+Make an empty folder on your computer where FamilyOS will live. For example:
 
-```bash
-git clone https://github.com/[OWNER]/FamilyOS.git ~/Documents/FamilyOS
-```
+- Mac: `~/Documents/FamilyOS`
+- Windows: `Documents\FamilyOS`
 
-Or use **GitHub Desktop** → **Code → Open with GitHub Desktop**.
-
-This creates your `~/Documents/FamilyOS/` folder with the full structure already in place. No unzipping, no manual folder creation.
+No terminal, no git, no downloads — just an empty folder. Cowork will pull the template in for you.
 
 ---
 
-### Step 2 — Open Claude Desktop and switch to Cowork
+### Step 2 — Open the folder in Cowork
 
-1. Install [Claude Desktop](https://claude.ai/download) if you haven't already
-2. Sign in with your Claude Pro or Max account
-3. Click **Cowork** at the top of the app
-
----
-
-### Step 3 — Set your working folder
-
-1. In Cowork, click the **folder icon** in the sidebar
-2. Click **Choose Folder**
-3. Navigate to `Documents/FamilyOS/workspace/` and select it
-
-Every scheduled task will now have access to your household files automatically.
+1. Install [Claude Desktop](https://claude.ai/download) if you haven't already and sign in with your Claude Pro or Max account
+2. Click **Cowork** at the top of the app
+3. Click the **folder icon** in the sidebar → **Choose Folder** → select the empty folder you just created
 
 ---
 
-### Step 4 — Paste the bootstrap prompt
+### Step 3 — Paste the bootstrap prompt
 
-Open a Cowork session and paste this:
+Start a new Cowork session in that folder and paste this:
 
 ```
-Read the FamilyOS household manager at https://github.com/[OWNER]/FamilyOS
+I want to set up FamilyOS, the household manager, in this folder.
 
-Start with BOOTSTRAP.md so you understand the setup process.
-Then read SOUL.md, USER.md, and TOOLS.md from my working folder.
+The template is at https://github.com/WomenDefiningAI/FamilyOS
+
+1. Copy all of the template files from that repo into this folder so we
+   have README.md, BOOTSTRAP.md, SETUP-CHECKLIST.md, skills/, and
+   workspace/ locally.
+2. Read workspace/SOUL.md, workspace/USER.md, and workspace/TOOLS.md.
 
 Now run the onboarding interview with me. Ask about:
 - Who's in my household (adults and children — ages, schools, grades)
@@ -129,85 +119,70 @@ Now run the onboarding interview with me. Ask about:
 
 Ask one topic at a time. After the interview:
 
-1. Rewrite USER.md with everything I told you. Show me the result and confirm.
-2. Walk me through enabling these connectors in Claude Desktop → Customize → Connectors: Gmail, Google Calendar, Slack.
-3. Walk me through creating my Slack inbox channel and updating TOOLS.md with the name.
-4. Walk me through creating these four scheduled tasks in Cowork → Scheduled → + New Task:
-   - Morning Brief (daily, 7 AM) — prompt from skills/morning-brief.md
-   - Household Inbox (hourly) — prompt from skills/slack-inbox.md
-   - Evening Memory (daily, 9 PM) — prompt from skills/memory-consolidation.md
-   - Weekly OS Review (weekly, Sunday 6 PM) — prompt from skills/weekly-review.md
-5. Walk me through creating a FamilyOS project in Projects → + New Project with the instructions from Step 8 of README.md.
-6. When everything is confirmed working, tell me to delete BOOTSTRAP.md from my workspace folder.
+1. Rewrite workspace/USER.md with everything I told you. Show me the
+   result and confirm.
+2. Walk me through enabling these connectors in Claude Desktop →
+   Customize → Connectors: Gmail, Google Calendar, Slack.
+3. Walk me through creating my Slack household inbox channel and
+   updating workspace/TOOLS.md with the name.
+4. Use the schedule skill to create these four scheduled tasks for me —
+   don't walk me through the UI, schedule them directly, then confirm
+   each one was created:
+   - Morning Brief — daily at 7:00 AM — prompt: contents of skills/morning-brief.md
+   - Household Inbox — hourly — prompt: contents of skills/slack-inbox.md
+   - Evening Memory — daily at 9:00 PM — prompt: contents of skills/memory-consolidation.md
+   - Weekly OS Review — weekly on Sunday at 6:00 PM — prompt: contents of skills/weekly-review.md
+5. Walk me through creating a FamilyOS project in Claude Desktop →
+   Projects → + New Project with the instructions from README.md Step 6.
+6. When everything is confirmed working, tell me to delete BOOTSTRAP.md
+   from my folder.
 ```
 
-The agent runs the interview, customizes your files, and walks you through every setup step in plain language. **Total time: about 20–30 minutes.**
+The agent pulls the template, runs the interview, customizes your files, connects your accounts, and schedules the four recurring tasks for you — all guided in plain language. **Total time: about 20–30 minutes.**
 
 At the end, Cowork will tell you to delete `BOOTSTRAP.md` — it's a one-time setup file and you won't need it again.
 
 ---
 
-### Step 5 — Connect your accounts
+### Step 4 — Connect your accounts
 
-During the bootstrap interview, Cowork will walk you through this — but here's the reference:
+Cowork walks you through this during the bootstrap interview. Reference:
 
 Go to **Claude Desktop → Customize → Connectors** and enable:
 
-**Gmail**
-1. Click Gmail → Connect
-2. Sign in with your Google account and authorize
-3. ✅ Done
-
-**Google Calendar**
-1. Click Google Calendar → Connect
-2. Sign in with the same Google account and authorize
-3. ✅ Done
-
-**Slack**
-1. Click Slack → Connect
-2. Sign in to your Slack workspace and authorize
-3. ✅ Done
+**Gmail** → Connect → sign in with your Google account and authorize.
+**Google Calendar** → Connect → sign in with the same Google account.
+**Slack** → Connect → sign in to your Slack workspace.
 
 > **No Slack workspace yet?** Go to [slack.com](https://slack.com) and create one — free tier has everything FamilyOS needs.
 
 ---
 
-### Step 6 — Create your Slack inbox channel
+### Step 5 — Create your Slack inbox channel
 
 1. In Slack, click **+ Add channels → Create a channel**
 2. Name it `#family-inbox` (or your preference)
 3. Set it to **Private**
 4. You're the only member — that's correct
 
-Then open `workspace/TOOLS.md` and update the channel name to match.
+Then update `workspace/TOOLS.md` with the channel name (Cowork can do this for you).
 
 ---
 
-### Step 7 — The four scheduled tasks
+### Scheduled tasks (for reference)
 
-The bootstrap interview walks you through creating these, but here's the full reference:
+Cowork creates these four tasks for you during bootstrap using the `schedule` skill — you shouldn't need to touch the UI. This reference is here in case you want to inspect or edit them later in **Cowork → Scheduled**.
 
-Go to **Cowork → Scheduled → + New Task** for each.
-
-**Morning Brief**
-- Frequency: Daily | Time: 7:00 AM
-- Prompt: contents of `skills/morning-brief.md` (below the first line)
-
-**Household Inbox**
-- Frequency: Hourly
-- Prompt: contents of `skills/slack-inbox.md` (below the first line)
-
-**Evening Memory**
-- Frequency: Daily | Time: 9:00 PM
-- Prompt: contents of `skills/memory-consolidation.md` (below the first line)
-
-**Weekly OS Review**
-- Frequency: Weekly — Sunday | Time: 6:00 PM
-- Prompt: contents of `skills/weekly-review.md` (below the first line)
+| Task | Frequency | Prompt source |
+|------|-----------|--------------|
+| Morning Brief | Daily, 7:00 AM | `skills/morning-brief.md` |
+| Household Inbox | Hourly | `skills/slack-inbox.md` |
+| Evening Memory | Daily, 9:00 PM | `skills/memory-consolidation.md` |
+| Weekly OS Review | Sunday, 6:00 PM | `skills/weekly-review.md` |
 
 ---
 
-### Step 8 — Create a Cowork project
+### Step 6 — Create a Cowork project
 
 Go to **Projects → + New Project**
 
@@ -235,9 +210,9 @@ Use this project for all on-demand requests. It carries full context every time.
 
 ---
 
-### Step 9 — Delete BOOTSTRAP.md
+### Step 7 — Delete BOOTSTRAP.md
 
-Once setup is confirmed working, delete `workspace/BOOTSTRAP.md` from your local folder. It was only needed to get started. Keeping `workspace/` clean matters — the agent reads everything in it.
+Once setup is confirmed working, delete `BOOTSTRAP.md` from your FamilyOS folder. It was only needed to get started.
 
 ---
 

@@ -1,27 +1,31 @@
 # Setup Checklist
 
-Quick reference for manual setup. For a guided walkthrough, use the bootstrap prompt in README.md Step 4.
+Quick reference for the setup flow. For the guided walkthrough, use the bootstrap prompt in README.md Step 3.
 
 ---
 
-- [ ] Clone the repo: `git clone https://github.com/[OWNER]/FamilyOS.git ~/Documents/FamilyOS`
-- [ ] Open Claude Desktop → click **Cowork**
-- [ ] Set working folder to `FamilyOS/workspace/`
-- [ ] **Customize → Connectors:** enable Gmail, Google Calendar, Slack
-- [ ] Create `#family-inbox` Slack channel (private, just you) → update `workspace/TOOLS.md`
-- [ ] Fill in `workspace/USER.md` with your family details
+- [ ] Create an empty folder (e.g. `~/Documents/FamilyOS`)
+- [ ] Open Claude Desktop → **Cowork** → **Choose Folder** → select your empty folder
+- [ ] Paste the bootstrap prompt from README.md Step 3 into a new Cowork session
 
-**Four scheduled tasks** (Cowork → Scheduled → + New Task):
+Cowork handles the rest. Check these off as it walks you through them:
+
+- [ ] Template files copied into your folder (README.md, BOOTSTRAP.md, skills/, workspace/)
+- [ ] Onboarding interview complete → `workspace/USER.md` filled in
+- [ ] **Customize → Connectors:** Gmail, Google Calendar, Slack enabled
+- [ ] Slack inbox channel created (private, just you) → `workspace/TOOLS.md` updated
+
+**Four scheduled tasks** — Cowork creates these for you via the `schedule` skill. Verify in **Cowork → Scheduled**:
 - [ ] Morning Brief — Daily, 7 AM — prompt from `skills/morning-brief.md`
 - [ ] Household Inbox — Hourly — prompt from `skills/slack-inbox.md`
 - [ ] Evening Memory — Daily, 9 PM — prompt from `skills/memory-consolidation.md`
 - [ ] Weekly OS Review — Weekly, Sunday 6 PM — prompt from `skills/weekly-review.md`
 
 **Cowork project** (Projects → + New Project):
-- [ ] Name: FamilyOS — paste project instructions from README.md Step 8
+- [ ] Name: FamilyOS — paste project instructions from README.md Step 6
 
 **Cleanup:**
-- [ ] Delete `workspace/BOOTSTRAP.md` once setup is confirmed working
+- [ ] Delete `BOOTSTRAP.md` once setup is confirmed working
 
 **Verify:**
 - [ ] Morning brief appeared in Cowork history
