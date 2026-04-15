@@ -400,10 +400,8 @@ FamilyOS is built and maintained by [Women Defining AI](https://www.womendefinin
 
 Contributions are welcome — whether it's a bug fix, a new skill, or a documentation improvement.
 
-1. **Check existing [issues](https://github.com/WomenDefiningAI/FamilyOS/issues)** to see if your idea or bug is already being tracked.
-2. **Open an issue** to discuss larger changes before starting work, so we can align on direction.
-3. **Fork** the repository, create a feature branch, and commit your changes with clear messages.
-4. **Submit a pull request** — include a short description of what changed and why, and link to the related issue.
+1. **Fork** the repository, create a feature branch, and commit your changes with clear messages.
+2. **Submit a pull request** — include a short description of what changed and why.
 
 For questions, partnership inquiries, or anything that doesn't fit an issue, email [info@womendefiningai.org](mailto:info@womendefiningai.org).
 
