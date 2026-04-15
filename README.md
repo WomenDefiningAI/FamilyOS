@@ -241,23 +241,74 @@ Once setup is confirmed working, delete `BOOTSTRAP.md` from your FamilyOS folder
 
 ---
 
-## Day-to-day usage
+## How this works — a week in the life
 
-**Drop things in Slack throughout the day:**
-- `"Soccer signup deadline April 30"`
-- `"Add: sourdough, oat milk, lemons"`
-- `"Cleaner came today — paid $150 cash"`
-- `"School says hat day Friday"`
-- `"Plumber fixed kitchen faucet — $180 — Dave's Plumbing, good"`
+**One important thing first:** Scheduled tasks only fire when Claude Desktop is running on your computer. If your laptop is closed at 7 AM, the morning brief waits until you open it. For the daily and hourly jobs to be reliable, leave Claude Desktop running in the background. Treat it like Mail or Slack — always-on, in the tray.
 
-**Ask on-demand questions in your FamilyOS project:**
+### A typical weekday
+
+**7:00 AM — Morning Brief lands.** Open Claude Desktop → Cowork → Scheduled → Morning Brief → latest run. Something like:
+
+> **Tuesday, April 14**
+> - **Picture day Thursday** — Maya needs $12.
+> - Soccer 4 PM, rain forecast — bring jacket.
+> - Dentist needs RSVP by Friday.
+> - Next week: school book fair Mon–Wed.
+
+Two minutes to read.
+
+**Through the day — drop things in Slack as they happen.** No structure needed:
+- `"plumber came $180, Dave's, kitchen faucet, good"`
+- `"add lemons, sourdough, oat milk"`
+- `"Maya friend birthday May 3"`
+
+Within the hour they land in the right file (`shopping/`, `helpers/`, `school/`, etc.). You don't check — you trust it.
+
+**9:00 PM — Evening Memory runs silently.** Today's `LOG.md` gets distilled into `MEMORY.md` (one line per durable fact). Tomorrow's brief will know about the plumber.
+
+**On demand, anytime — open your FamilyOS project and ask:**
 - `"Any urgent school emails this week?"`
 - `"Make a meal plan for the week"`
 - `"What home maintenance should I do this month?"`
 - `"What's on the shopping list right now?"`
 
-**Sunday evenings:**
-Check your Slack channel or `workspace/OS-LOG.md` for the weekly report. For each proposal, decide: apply it, skip it, or ask Cowork to apply it for you — `"Apply this proposal from OS-LOG.md: [paste it]"`.
+### How it remembers things
+
+The "brain" is just markdown in `workspace/`:
+- **USER.md** — who your family is (set during onboarding)
+- **MEMORY.md** — what it's learned (rolling, terse)
+- **LOG.md** — today's scratchpad (cleared nightly)
+- **OS-LOG.md** — weekly proposals + your decisions
+
+Every scheduled task re-reads these before doing anything. No hidden state — open any file and you'll see exactly what it knows.
+
+### Sunday — the system tunes itself
+
+**6:00 PM — Weekly Review** posts a Slack message like:
+
+> 📋 *Weekly FamilyOS Review — April 13*
+> Solid week. 14 items filed, 2 needed review.
+> • ClassDojo notes keep hitting [NEEDS-REVIEW] → add to school senders
+> • "Oat milk" added 4× → make it a standing weekly item
+> • Wednesday pickup changed 3× → update USER.md
+
+Full proposals live in `OS-LOG.md`. To apply one, open your FamilyOS project and say:
+
+> *"Apply this proposal from OS-LOG.md: [paste it]."*
+
+The system never edits itself. You decide what sticks. Over weeks this is what bends FamilyOS toward your actual household.
+
+### When it gets things wrong (week one, it will)
+
+- **Misfiled?** Drop a correction in Slack: `"that plumber note was maintenance, not shopping"`. Next hourly run fixes it.
+- **Brief missed something?** In any Cowork session: `"include backyard chores in the morning brief — and update skills/morning-brief.md so it sticks"`.
+- **A job didn't run?** Cowork → Scheduled → confirm it's enabled, the working folder is set, and your computer was awake.
+
+### What you don't need to do
+
+- Open Cowork every day — the brief is waiting whenever you want it.
+- Fill USER.md perfectly upfront — the weekly review tunes it over time.
+- Babysit the inbox — trust the filing, only step in when it's wrong.
 
 ---
 
