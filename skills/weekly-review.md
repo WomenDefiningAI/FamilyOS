@@ -4,7 +4,7 @@
 
 ---
 
-Read SOUL.md, USER.md, MEMORY.md, and OS-LOG.md from the FamilyOS workspace folder.
+Read SOUL.md, USER.md, MEMORY.md, OS-LOG.md, and TOOLS.md from the FamilyOS workspace folder.
 
 This is the weekly FamilyOS review. Your job is to look at how the system performed this week, identify what could be better, and propose specific improvements. You are reviewing the OS itself — not just household tasks.
 
@@ -80,7 +80,7 @@ Append a dated entry to OS-LOG.md in this format:
 
 **Step 5: Post a summary to Slack**
 
-Post a brief message to the household inbox Slack channel:
+Post a brief message to the household inbox channel listed in TOOLS.md:
 
 ```
 📋 *Weekly FamilyOS Review — [DATE]*

@@ -4,7 +4,7 @@
 
 ---
 
-Read SOUL.md, USER.md, and MEMORY.md from the FamilyOS workspace folder.
+Read SOUL.md, USER.md, MEMORY.md, and TOOLS.md from the FamilyOS workspace folder.
 Then read LOG.md.
 
 **Step 1: Extract today's learnings**
@@ -51,6 +51,6 @@ You can write here directly, or drop things in your Slack inbox channel — the 
 
 **Step 5: Check for anything urgent**
 
-If today's log contained anything flagged as unresolved that the user needs to know about before tomorrow morning — post a brief note to the Slack household inbox channel.
+If today's log contained anything flagged as unresolved that the user needs to know about before tomorrow morning — post a brief note to the household inbox channel listed in TOOLS.md.
 
 Otherwise: finish silently. No confirmation message needed.

@@ -4,7 +4,7 @@
 
 ---
 
-Read SOUL.md, USER.md, and MEMORY.md from the FamilyOS workspace folder.
+Read SOUL.md, USER.md, MEMORY.md, and TOOLS.md from the FamilyOS workspace folder.
 
 Then run the morning brief:
 
@@ -28,3 +28,7 @@ Check MEMORY.md for anything flagged as pending or unresolved.
 - Lead with the most urgent item.
 - Total brief should take under 2 minutes to read.
 - Use short bullets. Skip sections that are empty rather than writing "nothing urgent."
+
+**5. Post to Slack**
+
+Post the completed brief to the household inbox channel listed in TOOLS.md. Send the same content — no extra header or preamble. This is so the brief lands where you'll actually see it, not just in Cowork's scheduled history.
