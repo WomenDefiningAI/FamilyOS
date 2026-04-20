@@ -8,17 +8,45 @@ Morning briefs. School email triage. Meal planning. Shopping lists. Home mainten
 
 ---
 
-## UPDATE — Slack connector is text-only (photo workflow)
+## UPDATE ON COWORK CONNECTOR LIMITATIONS TO KNOW FOR FAMILYOS
 
-The Slack connector that FamilyOS uses for the household inbox cannot read image attachments — it only surfaces message text. Photos you drop into the Slack channel (pantry, fridge, freezer, receipts, school flyers) are invisible to the hourly inbox job, the morning brief, and the weekly review.
+Cowork and the Claude connectors are powerful, but each one has rough edges you'll hit in household use. Here's the short list of what bites first — full detail and workarounds in `workspace/TOOLS.md`.
 
-**What to do instead:**
+### Slack (text-only)
 
-- **Recurring inventory photos** (fridge / freezer / chest freezer / pantry) → save them locally to `workspace/resources/pantry/photos/` using the filename pattern `<location>-YYYY-MM-DD.jpg` (e.g., `fridge-2026-04-20.jpg`). The meal planner reads this folder directly and cooks down what's on hand first. See `workspace/resources/pantry/photos/README.md`.
-- **One-off photo-based asks** (plan meals off these fridge pics, extract info from a school flyer, etc.) → attach the photo directly in the Cowork session when you run the skill. Cowork reads image attachments natively.
-- **If you do drop a photo in Slack** → the hourly inbox job logs the message as `[NEEDS-REVIEW]` with a note explaining the connector limitation, so nothing silently disappears. Move the photo to the folder (or re-share in Cowork) to act on it.
+- **Photos aren't readable.** Pantry/fridge/freezer/receipt/school-flyer photos dropped in the household inbox are invisible to every scheduled job. Save recurring inventory photos to `workspace/resources/pantry/photos/` (filename pattern `<location>-YYYY-MM-DD.jpg`), or attach one-offs directly in a Cowork session. The hourly inbox job logs image-referencing messages as `[NEEDS-REVIEW]` so nothing silently disappears.
+- **No DMs.** The connector operates on channels the bot has been invited to — direct messages don't reach it.
+- **Private channels must explicitly invite the Claude bot** before the connector can see them.
+- **Thread and mention history is capped** (roughly last 20–50 messages). Don't rely on deep Slack history for context.
 
-Full detail in `workspace/TOOLS.md` under "Known connector limitations."
+### Gmail
+
+- **Attachments (PDFs, images) aren't readable.** School permission slips, field-trip forms, flyers, and receipts received by email won't parse. Save the file locally and attach it in a Cowork session, or forward the PDF to yourself and open it directly.
+- **Drafts can't include attachments, and there's no send-draft tool.** Claude can write an email body but can't end-to-end send a reply with a file attached.
+- **One Gmail account per connector** — no simultaneous spouse+personal inboxes in the same session.
+- **Default search depth is about 3 years back** — if you ask about older threads, widen the window in the prompt.
+
+### Google Calendar
+
+- **Multi-calendar (shared family + personal) is spotty.** The connector tends to default to the primary calendar. If your family events live on a shared calendar, either make it the primary on the Google account Cowork is connected to, or name the calendar explicitly in prompts.
+- **Event attachments (Drive links on events) aren't readable.**
+- **Timezone follows the calendar's TZ setting, not the OS.** If you travel or have calendars in different zones, set TZ explicitly when asking about times.
+
+### Cowork scheduled tasks
+
+- **Desktop-bound.** Jobs only fire while Claude Desktop is running and the computer is awake. A closed laptop at 7 AM means the morning brief waits until you open it.
+- **Permission "Always allow" can regress.** After a Claude Desktop update or occasionally on its own, scheduled runs re-prompt for folder/tool approval and silently stall. If a job stops firing, go to Cowork → Scheduled, click Run now, and re-approve. Worth doing after every Claude Desktop update.
+
+### Local files (your FamilyOS working folder)
+
+- **Don't keep `FamilyOS/` in a cloud-synced folder.** On macOS, anything under `~/Library/CloudStorage/` (iCloud Drive, OneDrive, Google Drive) fails to mount as a Cowork working folder. On Windows, OneDrive's on-demand "placeholder" files break the Cowork sandbox. If your Mac has iCloud Desktop & Documents sync on (the default), putting FamilyOS in `~/Documents/FamilyOS` will silently break — use `~/FamilyOS` or `~/Developer/FamilyOS` instead.
+- **PDFs cap at ~30 MB and ~100 pages** for visual analysis. Large scanned PDFs need to be split.
+
+---
+
+### A note on all of this
+
+These guardrails exist *for now*. Cowork and every connector are improving on the scale of **weeks, not months** — capabilities that are missing today are likely to ship in the next release. This repository is the whole point: **keep experimenting**, notice what breaks, and adapt. When something works that didn't before, delete the workaround. When something new breaks, add a note to `workspace/TOOLS.md`. The system bends toward your actual household; the tooling bends toward what's possible.
 
 ---
 
@@ -93,8 +121,10 @@ The household brain lives in `workspace/` — plain markdown files on your machi
 
 Make an empty folder on your computer where FamilyOS will live. For example:
 
-- Mac: `~/Documents/FamilyOS`
-- Windows: `Documents\FamilyOS`
+- Mac: `~/FamilyOS` (or `~/Developer/FamilyOS`)
+- Windows: `C:\Users\<you>\FamilyOS`
+
+**Avoid cloud-synced locations.** Don't use `~/Documents/FamilyOS` on a Mac if iCloud Desktop & Documents sync is on (it's on by default), and avoid anything under OneDrive or Google Drive on Windows — cloud-synced folders break Cowork's working-folder mount. See the UPDATE section above.
 
 No terminal, no git, no downloads — just an empty folder. Cowork will pull the template in for you.
 
