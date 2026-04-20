@@ -4,9 +4,18 @@
 
 ---
 
-Read SOUL.md, USER.md, and MEMORY.md from the FamilyOS workspace folder.
+Read SOUL.md, USER.md, MEMORY.md, and TOOLS.md from the FamilyOS workspace folder.
 Check `resources/meal-plans/` for the last 2–3 weeks of plans (to avoid repeating the same meals).
 Check `resources/shopping/current-list.md` for items already on hand.
+
+**Check on-hand inventory from photos.** The Slack connector cannot read images, so pantry/fridge/freezer photos live locally:
+
+1. List `resources/pantry/photos/`. For each image file, read it and extract what's visible. Prefer the most recent photo per location (fridge / freezer / chest-freezer / pantry) based on filename date or file mtime.
+2. Also consider any photos attached directly to this Cowork session — they take precedence over folder photos for the same location.
+3. If any photo is older than 14 days, note it in the output ("fridge photo is 18 days old — inventory may be stale") so the user knows to refresh it.
+4. If no photos are available at all, say so and plan from pantry assumptions + shopping list only.
+
+Build the plan to use what's on hand first — especially items nearing expiration or flagged by the user (e.g., "beef cubes I might toss", "scallops defrosting"). Favor those ingredients early in the week.
 
 Generate a meal plan for the coming week (Monday through Sunday).
 
@@ -33,6 +42,9 @@ Generate a meal plan for the coming week (Monday through Sunday).
 
 ## Ingredients to add to shopping list
 - [Items needed beyond what's likely already on hand]
+
+## Using up what's on hand
+- [Items from the pantry/fridge/freezer photos being cooked this week, with the day]
 ```
 
 **After I approve:**

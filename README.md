@@ -8,6 +8,20 @@ Morning briefs. School email triage. Meal planning. Shopping lists. Home mainten
 
 ---
 
+## UPDATE — Slack connector is text-only (photo workflow)
+
+The Slack connector that FamilyOS uses for the household inbox cannot read image attachments — it only surfaces message text. Photos you drop into the Slack channel (pantry, fridge, freezer, receipts, school flyers) are invisible to the hourly inbox job, the morning brief, and the weekly review.
+
+**What to do instead:**
+
+- **Recurring inventory photos** (fridge / freezer / chest freezer / pantry) → save them locally to `workspace/resources/pantry/photos/` using the filename pattern `<location>-YYYY-MM-DD.jpg` (e.g., `fridge-2026-04-20.jpg`). The meal planner reads this folder directly and cooks down what's on hand first. See `workspace/resources/pantry/photos/README.md`.
+- **One-off photo-based asks** (plan meals off these fridge pics, extract info from a school flyer, etc.) → attach the photo directly in the Cowork session when you run the skill. Cowork reads image attachments natively.
+- **If you do drop a photo in Slack** → the hourly inbox job logs the message as `[NEEDS-REVIEW]` with a note explaining the connector limitation, so nothing silently disappears. Move the photo to the folder (or re-share in Cowork) to act on it.
+
+Full detail in `workspace/TOOLS.md` under "Known connector limitations."
+
+---
+
 ## What it does
 
 FamilyOS runs four jobs automatically and gives you two more on demand.
@@ -349,7 +363,8 @@ FamilyOS/
 │       ├── school/notices.md
 │       ├── home-maintenance/log.md        ← Includes seasonal checklist
 │       ├── helpers/log.md
-│       └── meal-plans/
+│       ├── meal-plans/
+│       └── pantry/photos/                 ← Drop fridge/freezer/pantry photos here (Slack can't read images)
 │
 └── skills/                                ← Scheduled task and on-demand prompts
     ├── morning-brief.md

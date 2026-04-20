@@ -43,3 +43,19 @@ When completing a task, use the most direct path available:
 - Sharing any family information outside the household context
 
 When uncertain: describe the intended action and ask first.
+
+---
+
+## Known connector limitations
+
+**Slack connector is text-only.** The Slack MCP connector exposes message text but not image attachments. Photos dropped into the household inbox channel cannot be opened, downloaded, or analyzed by scheduled tasks. This affects the hourly inbox job, the morning brief, and the weekly review.
+
+**Workarounds for photo-based inputs (pantry, fridge, freezer, receipts, school flyers):**
+
+| Use case | Where to put the photo |
+|---|---|
+| Recurring inventory (pantry / fridge / freezer / chest freezer) | Save to `resources/pantry/photos/` with a filename like `fridge-YYYY-MM-DD.jpg`. Scheduled skills read this folder directly. |
+| One-off meal planning from what's on hand | Attach the photo directly in the Cowork session when running the meal planner. Cowork reads image attachments natively. |
+| Receipts, school flyers, any other one-off image | Attach in a Cowork session and ask the agent to file the extracted info. |
+
+**If a Slack message references a photo** (e.g. "see pic", "here's the freezer") the hourly inbox job cannot see it. It logs the message to `LOG.md` tagged `[NEEDS-REVIEW]` with a note that an image was referenced but not accessible, so the weekly review surfaces it.
