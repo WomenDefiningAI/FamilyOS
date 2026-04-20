@@ -33,6 +33,12 @@ For each new message, classify and file:
 - Ambiguous items must use the exact tag `[NEEDS-REVIEW]` so the weekly review job can find them
 - If a message could require sending an email, adding a calendar event, or any outbound action: log the intent in LOG.md tagged `[NEEDS-APPROVAL]` and do not act unilaterally
 
+**Image attachments (Slack connector limitation):**
+The Slack connector exposes message text only — it cannot download image files. If a message references a photo (contains words like "photo", "pic", "picture", "image", "see attached", "here's the", or is just a short caption like "freezer" or "fridge" with no actionable text), treat it as follows:
+1. Append to `LOG.md` tagged `[NEEDS-REVIEW]` with the message text verbatim, today's date, and a one-line note: `— image referenced but Slack connector cannot read it. See TOOLS.md for the photo workflow.`
+2. Do not guess at contents. Do not mark the message as filed to pantry/school/etc.
+3. Still update `memory/last-inbox-check.md` so the message isn't reprocessed next run.
+
 ---
 
 ## Applying weekly review proposals
