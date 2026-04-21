@@ -19,7 +19,7 @@ From LOG.md, identify anything worth persisting as household knowledge:
 
 **Step 2: Update MEMORY.md**
 
-Add a dated entry at the top of MEMORY.md:
+Add a dated entry at the top of MEMORY.md (below the "Waiting on human" section):
 
 ```
 ## [YYYY-MM-DD]
@@ -29,6 +29,16 @@ Add a dated entry at the top of MEMORY.md:
 
 Be terse. One line per fact. Skip anything already captured in MEMORY.md.
 If today's log had nothing worth persisting, skip this step entirely — don't add an empty entry.
+
+**Step 2a: Rescue waiting-on-human items into MEMORY.md**
+
+Before clearing LOG.md, scan it for any line tagged `[PENDING-ASANA]`, `[NEEDS-APPROVAL]`, or `[NEEDS-REVIEW]`.
+
+For each such line that is not already present in the "Waiting on human" section of MEMORY.md, append it verbatim to that section (preserve the date prefix and tag).
+
+For each entry already listed in "Waiting on human" that LOG.md marks as resolved today (e.g., an explicit "resolved" note referencing the same item), remove the corresponding line from the "Waiting on human" section.
+
+This prevents waiting items from disappearing when LOG.md is cleared in Step 4.
 
 **Step 3: Trim old memory if needed**
 

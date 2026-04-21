@@ -33,11 +33,28 @@ For each new message, classify and file:
 - Ambiguous items must use the exact tag `[NEEDS-REVIEW]` so the weekly review job can find them
 - If a message could require sending an email, adding a calendar event, or any outbound action: log the intent in LOG.md tagged `[NEEDS-APPROVAL]` and do not act unilaterally
 
-**Image attachments (Slack connector limitation):**
-The Slack connector exposes message text only — it cannot download image files. If a message references a photo (contains words like "photo", "pic", "picture", "image", "see attached", "here's the", or is just a short caption like "freezer" or "fridge" with no actionable text), treat it as follows:
-1. Append to `LOG.md` tagged `[NEEDS-REVIEW]` with the message text verbatim, today's date, and a one-line note: `— image referenced but Slack connector cannot read it. See TOOLS.md for the photo workflow.`
-2. Do not guess at contents. Do not mark the message as filed to pantry/school/etc.
-3. Still update `memory/last-inbox-check.md` so the message isn't reprocessed next run.
+---
+
+## Stalled PENDING-ASANA re-prompt
+
+After processing any new messages (even if there were none), scan LOG.md for entries tagged `[PENDING-ASANA]` whose date is more than 24 hours before today.
+
+If 1 or more stalled entries exist:
+
+1. Bundle them into a single Slack message posted to the household inbox channel. Format:
+
+   ```
+   📝 *PENDING-ASANA backlog — still waiting on confirmation*
+
+   These items have been sitting for more than a day. Reply `confirm 1,3` (or `confirm all`, or `skip`) and I'll create the selected ones in Lovell Warner Personal.
+
+   1. **[Task title]** — [due date or "no due date"] — logged [YYYY-MM-DD]
+   2. ...
+   ```
+
+2. Post once per day at most — check LOG.md for a line matching `[YYYY-MM-DD] [PENDING-ASANA-REMINDER-SENT]` with today's date. If present, skip. Otherwise, after posting, append `[YYYY-MM-DD] [PENDING-ASANA-REMINDER-SENT]` to LOG.md so the same batch isn't re-sent within the same day.
+
+3. When a later `confirm N` or `confirm all` reply lands, process it like an apply directive — create the named tasks in Asana's "Lovell Warner Personal" project and remove those entries from the PENDING-ASANA list in LOG.md.
 
 ---
 
