@@ -4,4 +4,4 @@ Used by the Household Inbox scheduled task to track when it last ran, so it does
 
 ---
 
-last_checked: *(agent writes a timestamp here after each run — format: YYYY-MM-DDTHH:MM:SS)*
+last_checked: 2026-04-21T09:10:00
