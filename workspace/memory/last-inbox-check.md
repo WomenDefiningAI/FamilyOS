@@ -4,4 +4,4 @@ Used by the Household Inbox scheduled task to track when it last ran, so it does
 
 ---
 
-last_checked: 2026-04-22T08:07:00
+last_checked: 2026-04-22T17:44:00Z
