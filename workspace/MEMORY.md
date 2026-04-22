@@ -13,6 +13,10 @@ Items rescued from LOG.md each night because they're waiting on a person (confir
 
 ---
 
+## [2026-04-21]
+- May 27 8:00–9:00 AM "Dentist" calendar event is Soma's appointment at Redtree Dental (Dr. Anita Jain); both John and Danielle are invited intentionally so both parents get notifications — not a duplicate. Do not flag in morning brief.
+- Pattern: a `:+1:` emoji reaction on a Slack task proposal counts as valid confirmation to create the Asana task (alongside "yes create all" batch confirmation).
+
 ## [2026-04-19]
 - OTMG is the expense account for work-related charges (e.g. Disneyland trip, YouTube Premium subscription) — credits and reimbursements route there.
 - Monarch is the household's financial tracking tool, used for Family Savings reconciliation.
@@ -23,7 +27,6 @@ Items rescued from LOG.md each night because they're waiting on a person (confir
 ## [2026-04-18]
 - John does not work on Saturday or Sunday — no scheduled/calendared work on weekends.
 - Soma dentist (Hyg Recall Age 7–18): Tue May 27, 2026, 8:00 AM, Redtree Dental, Dr. Anita Jain, 1395 West 6th Ave.
-- [NEEDS-REVIEW] Duplicate "Dentist" calendar event 8:00–9:00 AM on May 27 inviting Danielle and John — appears to pair with the Redtree entry; decide whether to clean up.
 - Meghan (Stirling's parent) playdate confirmation for April 18 was completed by Danielle.
 
 ## [2026-04-16]

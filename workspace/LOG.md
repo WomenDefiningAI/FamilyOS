@@ -6,5 +6,3 @@ You can write here directly, or drop things in your Slack inbox channel — the 
 
 ---
 
-[2026-04-21] May 27 "Dentist" calendar event (8:00–9:00 AM) is not a duplicate — it's Soma's dentist appointment and both John and Danielle are invited intentionally so both parents get notifications. Stop flagging it as an open item in the morning brief.
-[2026-04-21] Asana task created in Lovell Warner Personal: Buy Nespresso descaling kit (confirmed via :+1: reaction on Slack proposal)
