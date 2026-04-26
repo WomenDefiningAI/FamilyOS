@@ -106,7 +106,7 @@ If 1 or more stalled entries exist:
 
 2. Post once per day at most — check LOG.md for a line matching `[YYYY-MM-DD] [PENDING-ASANA-REMINDER-SENT]` with today's date. If present, skip. Otherwise, after posting, append `[YYYY-MM-DD] [PENDING-ASANA-REMINDER-SENT]` to LOG.md so the same batch isn't re-sent within the same day.
 
-3. When a later `confirm N` or `confirm all` reply lands, process it like an apply directive — create the named tasks in Asana's "Lovell Warner Personal" project and remove those entries from the PENDING-ASANA list in LOG.md.
+3. When a later `confirm N` or `confirm all` reply lands, process it like an apply directive — create the named tasks in Asana's "Lovell Warner Personal" project (class: `asana/create-task` — H4-forever, requires explicit user confirmation per TOOLS.md) and remove those entries from the PENDING-ASANA list in LOG.md (class: `slack-inbox/asana-remove-pending` — H5; log cleanup after user-confirmed Asana create).
 
 ---
 
@@ -119,7 +119,7 @@ When a Slack message matches `apply N`, `apply N,M`, `apply all`, or `skip` (cas
    - If the proposal is marked `Auto-apply: yes`, perform the change exactly as written — edit the named file, add the named line, or update the named field. Do not improvise beyond what the proposal says.
    - If marked `Auto-apply: no`, do NOT apply. Note in the Applied section that it requires manual setup (and why).
    - If the proposal already has an entry in that week's **Applied** section, skip it (already applied).
-3. **Update OS-LOG.md.** Append one line per proposal to the **Applied** section of that week's block:
+3. **Update OS-LOG.md** (class: `slack-inbox/os-log-update-applied` — H5; text append to OS-LOG.md "Applied" section after user `apply N`). Append one line per proposal to the **Applied** section of that week's block:
    - Applied: `- **[YYYY-MM-DD HH:MM]** — Proposal N applied via Slack reply. [What changed and where.]`
    - Not applied: `- **[YYYY-MM-DD HH:MM]** — Proposal N not applied: requires manual setup ([reason]).`
    - Skip directive: `- **[YYYY-MM-DD HH:MM]** — Week skipped via Slack reply. No proposals applied.`

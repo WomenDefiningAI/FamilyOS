@@ -82,6 +82,7 @@ Manual demotion is always available as an escape hatch. If an H5 row is producin
 | `slack-inbox/file-home-maintenance` | H5 | text append to `resources/home-maintenance/log.md`; matches pre-feature behavior (seed; revisit week 1) | 2026-04-26 |
 | `slack-inbox/append-general-log` | H5 | text append to `LOG.md` with date tag; matches pre-feature behavior (seed; revisit week 1) | 2026-04-26 |
 | `slack-inbox/tag-needs-review` | H5 | tag-only append to `LOG.md`; matches pre-feature behavior (seed; revisit week 1) | 2026-04-26 |
+| `slack-inbox/file-no-action` | H5 | text append to LOG.md tagged `[FILED-NO-ACTION]`; only emitted on classifier high-confidence triage_no — defaults to `[NEEDS-REVIEW]` on uncertainty (seed; revisit week 1) | 2026-04-26 |
 | `slack-inbox/append-pending-asana` | H5 | tag-only append to `LOG.md`; the actual Asana create stays H4-forever (seed; revisit week 1) | 2026-04-26 |
 | `slack-inbox/append-needs-approval` | H5 | tag-only append to `LOG.md`; the actual outbound action stays H4-forever (seed; revisit week 1) | 2026-04-26 |
 | `slack-inbox/update-inbox-timestamp` | H5 | overwrite of `memory/last-inbox-check.md`; matches pre-feature behavior (seed; revisit week 1) | 2026-04-26 |
