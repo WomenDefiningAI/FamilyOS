@@ -88,7 +88,7 @@ Keep proposals concrete. Vague suggestions ("improve memory") are not useful.
 
 ---
 
-**Step 4: Write to OS-LOG.md**
+**Step 4: Write to OS-LOG.md** (class: `weekly-review/append-os-log`)
 
 Append a dated entry to OS-LOG.md in this format:
 

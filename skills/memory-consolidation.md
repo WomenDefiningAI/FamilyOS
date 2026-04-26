@@ -2,6 +2,8 @@
 
 **How to use:** Copy everything below the line and paste it as the prompt when creating the "Evening Memory" scheduled task in Cowork. Set frequency to Daily at your preferred evening time (9:00 PM recommended).
 
+**Action trust:** see `workspace/TOOLS.md` → Action trust levels. This skill's actions all auto-apply (H5) by design — they run as a nightly scheduled task. Class names: `memory-consolidation/append-dated-entry`, `memory-consolidation/append-waiting-on-human`, `memory-consolidation/remove-resolved-item`, `memory-consolidation/rotate-audit-ledger`, `memory-consolidation/consolidate-archive`, `memory-consolidation/clear-log`.
+
 ---
 
 Read SOUL.md, USER.md, MEMORY.md, and TOOLS.md from the FamilyOS workspace folder.
@@ -17,7 +19,7 @@ From LOG.md, identify anything worth persisting as household knowledge:
 - Patterns worth remembering for future reference
 - Anything explicitly flagged as "remember this"
 
-**Step 2: Update MEMORY.md**
+**Step 2: Update MEMORY.md** (class: `memory-consolidation/append-dated-entry`)
 
 Add a dated entry at the top of MEMORY.md (below the "Waiting on human" section):
 
@@ -30,7 +32,7 @@ Add a dated entry at the top of MEMORY.md (below the "Waiting on human" section)
 Be terse. One line per fact. Skip anything already captured in MEMORY.md.
 If today's log had nothing worth persisting, skip this step entirely — don't add an empty entry.
 
-**Step 2a: Rescue waiting-on-human items into MEMORY.md**
+**Step 2a: Rescue waiting-on-human items into MEMORY.md** (classes: `memory-consolidation/append-waiting-on-human`, `memory-consolidation/remove-resolved-item`)
 
 Before clearing LOG.md, scan it for any line tagged `[PENDING-ASANA]`, `[NEEDS-APPROVAL]`, or `[NEEDS-REVIEW]`.
 
@@ -40,7 +42,7 @@ For each entry already listed in "Waiting on human" that LOG.md marks as resolve
 
 This prevents waiting items from disappearing when LOG.md is cleared in Step 4.
 
-**Step 2b: Rotate audit tags into audit-ledger.md**
+**Step 2b: Rotate audit tags into audit-ledger.md** (class: `memory-consolidation/rotate-audit-ledger`)
 
 Before clearing LOG.md, scan it for any line tagged `[AUTO-APPLIED]`, `[FILED-NO-ACTION]`, `[AUTO-APPLIED-REVERTED]`, or `[REACTION-PROCESSED]`.
 
@@ -59,7 +61,7 @@ These tags do **not** rescue to MEMORY.md "Waiting on human" — they're audit t
 
 If a line is malformed (e.g., missing the required `class:` field), skip it silently and append a one-line warning to LOG.md before the clear: `[YYYY-MM-DD HH:MM] [ROTATION-SKIPPED] reason:"<short text>" line:<verbatim line>`. The warning persists into the ledger via this same step on the next run, so no audit data is lost.
 
-**Step 2c: Prune the audit ledger if needed**
+**Step 2c: Prune the audit ledger if needed** (class: `memory-consolidation/consolidate-archive`)
 
 After Step 2b's append, check `workspace/audit-ledger.md` total line count. If "Active rotation window" exceeds ~500 lines, summarize entries older than 90 days into the `## Archive` section as one line per class per month-range:
 
@@ -73,7 +75,7 @@ Then remove those original entries from "Active rotation window." Newer entries 
 
 If MEMORY.md exceeds 150 lines, consolidate entries older than 90 days into a brief summary paragraph at the bottom under `## Archive`. Keep the last 90 days as individual dated entries.
 
-**Step 4: Clear LOG.md**
+**Step 4: Clear LOG.md** (class: `memory-consolidation/clear-log`)
 
 Replace the contents of LOG.md with exactly this:
 

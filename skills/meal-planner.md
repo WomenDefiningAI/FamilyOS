@@ -2,6 +2,8 @@
 
 **How to use:** Open a Cowork session and paste everything below the line. Run this whenever you want to plan the week's meals.
 
+**Action trust:** see `workspace/TOOLS.md` → Action trust levels for which actions auto-apply (H5) vs. propose (H4) vs. require explicit approval (H4-forever). This skill's state-changing actions are `meal-planner/save-week-plan` and `meal-planner/append-shopping-ingredients` (both H4 baseline; eligible for H5 promotion via weekly-review). Maple pushes are `external/maple-push` (H4-forever — always confirm).
+
 ---
 
 Read SOUL.md, USER.md, MEMORY.md, and TOOLS.md from the FamilyOS workspace folder.
@@ -48,9 +50,11 @@ Generate a meal plan for the coming week (Monday through Sunday).
 ```
 
 **After I approve:**
-1. Save the plan to `resources/meal-plans/[YYYY-MM-DD].md`
-2. Append the new ingredients to `resources/shopping/current-list.md`
-3. Mirror the newly added ingredients into Maple via Chrome MCP. `current-list.md` stays the source of truth — Maple is for shopping on the phone.
+1. Save the plan to `resources/meal-plans/[YYYY-MM-DD].md` (class: `meal-planner/save-week-plan`)
+2. Append the new ingredients to `resources/shopping/current-list.md` (class: `meal-planner/append-shopping-ingredients`)
+3. Mirror the newly added ingredients into Maple via Chrome MCP (class: `external/maple-push` — H4-forever, always confirm). `current-list.md` stays the source of truth — Maple is for shopping on the phone.
+
+If steps 1 and 2 are H5 in TOOLS.md (after a weekly-review promotion), perform them and emit `[AUTO-APPLIED]` LOG entries per the schema in TOOLS.md → LOG.md tag conventions. While they remain H4 baseline, perform them as today (no `[AUTO-APPLIED]` tag — they're already inside an explicit "After I approve" gate).
 
    **How to push to Maple:**
    - Open `https://app.growmaple.com/` (the assistant chat works from the home page; the meal-plan page at `/mealplan` also has a chat).

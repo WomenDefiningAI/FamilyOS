@@ -2,6 +2,8 @@
 
 **How to use:** Copy everything below the line and paste it as the prompt when creating the "Morning Brief" scheduled task in Cowork. Set frequency to Daily at your preferred morning time.
 
+**Action trust:** see `workspace/TOOLS.md` → Action trust levels. The morning brief is read-only by design (no file edits, no outbound writes). The Slack post (`morning-brief/post-daily-brief`) is system communication, not a ledger-governed action — it runs unconditionally as part of this scheduled task.
+
 ---
 
 Read SOUL.md, USER.md, MEMORY.md, and TOOLS.md from the FamilyOS workspace folder.
@@ -46,4 +48,4 @@ Keep each line short (one bullet per item). Skip the section entirely if all fou
 
 **6. Post to Slack**
 
-Post the completed brief to the household inbox channel listed in TOOLS.md. Send the same content — no extra header or preamble. This is so the brief lands where you'll actually see it, not just in Cowork's scheduled history.
+Post the completed brief to the household inbox channel listed in TOOLS.md. Send the same content — no extra header or preamble. This is so the brief lands where you'll actually see it, not just in Cowork's scheduled history. Append an `audit ref: [YYYY-MM-DD] / morning-brief/post-daily-brief` footer on its own line at the very end so any future reaction-handler can identify the post's origin.
