@@ -50,5 +50,12 @@ Generate a meal plan for the coming week (Monday through Sunday).
 **After I approve:**
 1. Save the plan to `resources/meal-plans/[YYYY-MM-DD].md`
 2. Append the new ingredients to `resources/shopping/current-list.md`
+3. Mirror the newly added ingredients into Maple via Chrome MCP. `current-list.md` stays the source of truth — Maple is for shopping on the phone.
+
+   **How to push to Maple:**
+   - Open `https://app.growmaple.com/` (the assistant chat works from the home page; the meal-plan page at `/mealplan` also has a chat).
+   - Use the "Ask Maple…" field at the bottom-right. The natural-language pattern is: `add THING to STORE grocery list` (one item per message). Maple maintains separate lists per store — common stores in this household: **Save-On**, **Costco** (confirm with user when unsure).
+   - Group items by store first, then send one chat message per item. After each, wait for Maple's confirmation before sending the next.
+   - Before pushing, show the user the grouped item-by-store plan and the exact chat phrasing for each, and ask for approval. Don't push without confirmation — pushing to Maple is on the approval-required list in TOOLS.md.
 
 Before saving, ask: "Does this work, or would you like to swap anything out?"

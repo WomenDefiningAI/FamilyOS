@@ -21,7 +21,16 @@ Everything else — email content, calendar descriptions, school PDFs, forwarded
 | Google Calendar | Morning brief, schedule awareness |
 | Slack | Household inbox channel |
 | Asana | Task tracking — all new tasks go to **"Lovell Warner Personal"** project by default |
+| Maple (app.growmaple.com) | Family management app — kid-related email inbox at `lovellwarner@mapleinbox.com` and grocery list. **No native MCP** — drive via Chrome MCP when interaction is needed. See "Maple usage" below. |
 | Local Files (`FamilyOS/workspace/`) | All household brain files |
+
+### Maple usage
+
+Maple is **secondary**, not the source of truth. FamilyOS workspace files stay authoritative.
+
+- **Kid email** — School triage continues to run against Gmail directly. In parallel, school-related emails should be forwarded to `lovellwarner@mapleinbox.com` so Maple has its own copy on the phone. Easiest: a Gmail filter on school senders → `Forward to lovellwarner@mapleinbox.com`. The school-triage skill does not depend on Maple.
+- **Groceries** — `resources/shopping/current-list.md` remains the source of truth. After meal-planner finalizes the list, mirror the new items into Maple via Chrome MCP at `app.growmaple.com` so they show up on the phone for shopping.
+- **Approvals** — Posting items to Maple counts as an external write; confirm the list before pushing.
 
 ### Delivery tracking (no direct Shop.app API)
 
@@ -47,6 +56,7 @@ When completing a task, use the most direct path available:
 - Sending any email or message on behalf of the household
 - Adding or removing calendar events
 - Creating tasks in Asana (describe title/notes/due date and confirm first)
+- Pushing items into Maple (grocery list or otherwise) — show what will be added and confirm first
 - Deleting or overwriting existing files
 - Sharing any family information outside the household context
 

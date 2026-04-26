@@ -26,3 +26,5 @@ Output:
 
 After outputting, append any new dates or deadlines to `resources/school/notices.md`.
 Ask if any of the FYI items need to be logged or acted on.
+
+**Maple parallel forwarding:** Gmail-based triage above is the source of truth. Maple (`lovellwarner@mapleinbox.com`) runs in parallel — school senders should be auto-forwarded to that address via a Gmail filter, so Maple gets its own copy on the phone. If the user mentions an email is missing from Maple, check that the Gmail filter is still active on that sender. Do not re-triage from Maple; do not send anything to Maple from this skill.

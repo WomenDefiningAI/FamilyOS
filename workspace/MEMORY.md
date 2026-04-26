@@ -11,7 +11,21 @@ Items rescued from LOG.md each night because they're waiting on a person (confir
 
 <!-- Format: [YYYY-MM-DD] [TAG] original entry text -->
 
+<!-- All passport/NEXUS PENDING-ASANA items resolved 2026-04-23 — tasks created in Lovell Warner Personal -->
+
+[2026-04-25] [PENDING-ASANA] Awaiting Slack confirmation to create: Sell travel shoulder backpack (no due date)
+[2026-04-25] [PENDING-ASANA] Awaiting Slack confirmation to create: Schedule haircut for Danielle (due 2026-05-14)
+[2026-04-25] [PENDING-ASANA] Awaiting Slack confirmation to create: Schedule haircut for Soma (due 2026-05-14)
+[2026-04-25] [PENDING-ASANA] Awaiting Slack confirmation to create: Book eyebrow threading for Danielle (due 2026-05-14)
+
+
 ---
+
+## [2026-04-24]
+- Soma Monday Apr 27 pickup change (grandparents picking up): confirmation message to Anne Luyten AND email to Wize Academy already sent by Danielle on 2026-04-24 — household-rule action for this week is complete; Monday brief should not nudge for it.
+
+## [2026-04-22]
+- Household rule — Soma Monday pickup changes: when grandparents pick Soma up from school on a Monday (instead of the usual Wize Academy pickup), Danielle must (1) message Anne Luyten to confirm, AND (2) email Wize Academy to let them know Soma won't be there. Same protocol applies if Soma is out of town, travelling on a Monday, or sick.
 
 ## [2026-04-21]
 - May 27 8:00–9:00 AM "Dentist" calendar event is Soma's appointment at Redtree Dental (Dr. Anita Jain); both John and Danielle are invited intentionally so both parents get notifications — not a duplicate. Do not flag in morning brief.
