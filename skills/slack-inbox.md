@@ -76,7 +76,20 @@ If 1 or more stalled entries exist:
 
 1. Bundle them into a single Slack message posted to the household inbox channel.
 
-   **Multi-item bundle format** (≥2 stalled entries):
+   **Single-item format** (exactly 1 stalled entry — emoji-confirm path):
+
+   ```
+   📝 Pending: **[Task title]** — [due date or "no due date"] — logged [YYYY-MM-DD]
+   React 👍 to confirm or ✕ to skip.
+
+   audit ref: [YYYY-MM-DD] / slack-inbox/post-pending-asana-reminder
+   ```
+
+   On the next hourly run, read reactions on this message via the Slack MCP (see **Handling reverts and reactions** below):
+   - 👍 reaction by Danielle → process as `confirm 1` (create the Asana task, remove the PENDING-ASANA line, post a brief confirmation)
+   - ✕ reaction by Danielle → process as `skip` (leave PENDING-ASANA in place; do not re-prompt today)
+
+   **Multi-item bundle format** (≥2 stalled entries — typed-directive path):
 
    ```
    📝 *PENDING-ASANA backlog — still waiting on confirmation*
@@ -89,7 +102,7 @@ If 1 or more stalled entries exist:
    audit ref: [YYYY-MM-DD] / slack-inbox/post-pending-asana-reminder
    ```
 
-   The `audit ref:` footer is required on every slack-inbox post — it lets the reaction-handler (see **Handling reverts and reactions**) trace back to the right action class.
+   Multi-item bundles do NOT use emoji-confirm — typed `confirm 1,3` is more expressive when there are multiple items. The `audit ref:` footer is required on every slack-inbox post.
 
 2. Post once per day at most — check LOG.md for a line matching `[YYYY-MM-DD] [PENDING-ASANA-REMINDER-SENT]` with today's date. If present, skip. Otherwise, after posting, append `[YYYY-MM-DD] [PENDING-ASANA-REMINDER-SENT]` to LOG.md so the same batch isn't re-sent within the same day.
 
@@ -119,3 +132,44 @@ When a Slack message matches `apply N`, `apply N,M`, `apply all`, or `skip` (cas
    ```
    For `skip`: `Skipped — no proposals applied this week.` (followed by the same audit-ref footer.)
 5. Do not act on parts of the message that aren't apply directives. If the user mixed an apply directive with other content, only handle the apply portion and treat the rest as ambiguous (`[NEEDS-REVIEW]`).
+
+---
+
+## Handling reverts and reactions
+
+The trust gradient lets H5 actions auto-apply with rollback as the safety net. This section covers (a) ♻️ reactions on slack-inbox's own past messages, (b) 👍/✕ reactions on single-item PENDING-ASANA reminders, and (c) typed `revert` directives.
+
+**On every hourly run**, after processing new messages:
+
+1. **Slack MCP capability check** (one-time, first run after this feature ships):
+   - Read the most recent FamilyOS bot message in `#familyos` via `slack_read_channel`. Confirm the response includes a non-empty `reactions` array (even if no reactions were added — empty array is fine; missing field is the failure case).
+   - If the field is missing entirely, log to LOG.md: `[YYYY-MM-DD] [REACTION-CAPABILITY] unavailable — Slack MCP does not expose reactions. Falling back to typed revert / confirm directives only.` Skip the rest of this section on every subsequent run until a curator updates this skill prompt.
+   - Otherwise: proceed with reaction reading.
+
+2. **Read reactions** on slack-inbox's own past messages (those bearing an `audit ref:` footer) from the last 7 days via `slack_read_channel`. For each new reaction (one not yet logged in `[REACTION-PROCESSED]`):
+
+   **♻️ rollback flow:**
+   - Parse the message's `audit ref:` footer to extract `<date>` and `<class>`.
+   - **Single-action message** — the audit-ref class points to one specific class (e.g., `slack-inbox/post-pending-asana-reminder`, `slack-inbox/post-confirmation`, or any future per-action confirmation post): find the corresponding `[AUTO-APPLIED]` line in `LOG.md` (today's entries) or `workspace/audit-ledger.md` "Active rotation window" (older entries). Reverse the change by reading the `file:` and `what:` fields of the AUTO-APPLIED entry and performing the inverse edit (delete the appended line; restore the prior tag; etc.). Append `[AUTO-APPLIED-REVERTED]` per schema. Reply: `Reverted: <what:>. (auto-applied <date>; reversed today)`. Append `[REACTION-PROCESSED] msg:<msg-ts> action:revert` to LOG.md.
+   - **Multi-action message** — the audit-ref class is `triage-digest/post-daily-digest` (the digest aggregates many bullets in one message): a single ♻️ has no per-bullet granularity, so reply with a numbered enumeration of the digest's reversible bullets (auto-applied entries only — `[FILED-NO-ACTION]` entries are not "reversible" since no resource state was changed beyond a log line) and prompt: `Which to revert? Reply revert N (or revert N,M / revert all-auto / cancel).` Append `[REACTION-PROCESSED] msg:<msg-ts> action:revert-prompted` to LOG.md so the same ♻️ doesn't repeat the prompt.
+
+   **👍 / ✕ on single-item PENDING-ASANA reminder:**
+   - Verify the audit-ref footer's class is `slack-inbox/post-pending-asana-reminder` AND the message body has the single-item format (one task only, not a numbered list).
+   - 👍 → process as `confirm 1` against that one item. Create the Asana task in Lovell Warner Personal, remove the matching PENDING-ASANA line from LOG.md, post brief confirmation, append `[REACTION-PROCESSED] msg:<msg-ts> action:confirm`.
+   - ✕ → process as `skip`. Leave the PENDING-ASANA line in place. Append `[REACTION-PROCESSED] msg:<msg-ts> action:skip`.
+   - Multi-item PENDING-ASANA bundles ignore reaction reactions entirely — only typed `confirm 1,3` / `confirm all` / `skip` directives count.
+
+   **Pre-feature messages** (no audit-ref footer) — older slack-inbox posts that pre-date this feature: any reaction is silently ignored. Append `[REACTION-PROCESSED] msg:<msg-ts> action:skip-pre-feature` so the same reaction isn't re-evaluated on the next hourly run.
+
+   **Lookup miss** — the audit-ref points to a class+date but no `[AUTO-APPLIED]` line is found in LOG.md or audit-ledger.md (write race / very old / pruned past 90 days / never existed): reply `Cannot revert — no audit record found for <class> on <date>. The action may not have been applied, or the audit entry was pruned.` Append `[REACTION-PROCESSED] msg:<msg-ts> action:revert-miss`.
+
+3. **Typed `revert` directives** — when a `#familyos` message matches `revert <YYYY-MM-DD> <class>`, `revert last`, or `revert N` (in response to a digest disambiguation reply that listed numbered bullets):
+
+   - `revert <date> <class>`: same logic as the single-action ♻️ flow above, addressing the AUTO-APPLIED entry by typed date+class.
+   - `revert last`: locate the most recent `[AUTO-APPLIED]` line not already reverted; revert it.
+   - `revert N` or `revert N,M` or `revert all-auto`: process in the context of the most recent disambiguation prompt (the most recent slack-inbox post tagged `[REACTION-PROCESSED] msg:<msg-ts> action:revert-prompted` within the past hour). Resolve N/M to the bullets from that disambiguation list, apply each like the single-action flow.
+   - `cancel` (only meaningful in the disambiguation context): no action, append `[REACTION-PROCESSED] msg:<original-digest-msg-ts> action:revert-cancelled`.
+
+4. **Cross-day idempotency**: `[REACTION-PROCESSED]` entries are rotated to `workspace/audit-ledger.md` nightly by memory-consolidation (per Step 2b in that skill). On every hourly run, check BOTH LOG.md AND audit-ledger.md "Active rotation window" before processing a reaction — the same `msg:<msg-ts>` should not be re-processed on consecutive days.
+
+5. Reverts of multiple stacked AUTO-APPLIED actions in one ♻️ are out — each ♻️ reverts at most one action (or triggers disambiguation in the digest case). Use typed `revert N,M` for batch revert via the disambiguation path.
