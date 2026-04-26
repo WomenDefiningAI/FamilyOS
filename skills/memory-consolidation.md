@@ -40,6 +40,35 @@ For each entry already listed in "Waiting on human" that LOG.md marks as resolve
 
 This prevents waiting items from disappearing when LOG.md is cleared in Step 4.
 
+**Step 2b: Rotate audit tags into audit-ledger.md**
+
+Before clearing LOG.md, scan it for any line tagged `[AUTO-APPLIED]`, `[FILED-NO-ACTION]`, `[AUTO-APPLIED-REVERTED]`, or `[REACTION-PROCESSED]`.
+
+For each such line, append it verbatim to the **"Active rotation window"** section of `workspace/audit-ledger.md` (newest at the top of that section). Preserve the timestamp and tag exactly as written.
+
+If `workspace/audit-ledger.md` does not exist (first run after this skill ships), create it from the template documented at the top of the file:
+
+```
+# Audit Ledger — Durable record of auto-applied / filed-no-action / reverted entries
+[…template body…]
+## Active rotation window
+## Archive
+```
+
+These tags do **not** rescue to MEMORY.md "Waiting on human" — they're audit trail, not waiting items. They rotate to the ledger so weekly-review can count confirmations-without-edits per H4 action class even after the LOG clear (see `workspace/TOOLS.md` → Action trust levels).
+
+If a line is malformed (e.g., missing the required `class:` field), skip it silently and append a one-line warning to LOG.md before the clear: `[YYYY-MM-DD HH:MM] [ROTATION-SKIPPED] reason:"<short text>" line:<verbatim line>`. The warning persists into the ledger via this same step on the next run, so no audit data is lost.
+
+**Step 2c: Prune the audit ledger if needed**
+
+After Step 2b's append, check `workspace/audit-ledger.md` total line count. If "Active rotation window" exceeds ~500 lines, summarize entries older than 90 days into the `## Archive` section as one line per class per month-range:
+
+```
+[YYYY-MM..YYYY-MM] class:<class-name> count:<N> reverts:<M>
+```
+
+Then remove those original entries from "Active rotation window." Newer entries stay verbatim.
+
 **Step 3: Trim old memory if needed**
 
 If MEMORY.md exceeds 150 lines, consolidate entries older than 90 days into a brief summary paragraph at the bottom under `## Archive`. Keep the last 90 days as individual dated entries.
