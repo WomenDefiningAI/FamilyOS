@@ -2,6 +2,8 @@
 
 **How to use:** Copy everything below the line and paste it as the prompt when creating the "Household Inbox" scheduled task in Cowork. Set frequency to Hourly.
 
+**Action trust:** see `workspace/TOOLS.md` → Action trust levels for which actions auto-apply (H5) vs. propose (H4) vs. require explicit approval (H4-forever). Class names referenced inline in this prompt (e.g., `slack-inbox/file-shopping-item`) match rows in that ledger.
+
 ---
 
 Read SOUL.md and TOOLS.md from the FamilyOS workspace folder.
@@ -16,22 +18,53 @@ If there are no new messages: stop here. Do not write anything or send any notif
 
 For each new message, classify and file:
 
-| If the message is... | File it / act on it by... |
-|---|---|
-| An apply directive — `apply N`, `apply N,M`, `apply all`, or `skip` (case-insensitive) | Act on the most recent weekly review proposals. See **Applying weekly review proposals** below. |
-| A shopping item | Append to `resources/shopping/current-list.md` |
-| A school notice, date, or form | Append to `resources/school/notices.md` |
-| A helper note (payment, schedule) | Append to `resources/helpers/log.md` |
-| Home maintenance (repair, vendor, cost) | Append to `resources/home-maintenance/log.md` |
-| A general reminder or "remember this" | Append to `LOG.md` with today's date |
-| A task you can act on now | Complete it using available tools, then log what was done in `LOG.md` |
-| Ambiguous or unclear | Append to `LOG.md` tagged exactly as `[NEEDS-REVIEW]` with the original message and today's date |
+| If the message is... | File it / act on it by... | Class |
+|---|---|---|
+| An apply directive — `apply N`, `apply N,M`, `apply all`, or `skip` (case-insensitive) | Act on the most recent weekly review proposals. See **Applying weekly review proposals** below. | (control flow) |
+| A revert directive — `revert <YYYY-MM-DD> <class>`, `revert last`, or `revert N` (in response to a digest disambiguation reply) | Reverse a prior `[AUTO-APPLIED]` action. See **Handling reverts and reactions** below. | (control flow) |
+| A shopping item | Append to `resources/shopping/current-list.md` | `slack-inbox/file-shopping-item` |
+| A school notice, date, or form | Append to `resources/school/notices.md` | `slack-inbox/file-school-notice` |
+| A helper note (payment, schedule) | Append to `resources/helpers/log.md` | `slack-inbox/file-helper-log` |
+| Home maintenance (repair, vendor, cost) | Append to `resources/home-maintenance/log.md` | `slack-inbox/file-home-maintenance` |
+| A general reminder or "remember this" | Append to `LOG.md` with today's date | `slack-inbox/append-general-log` |
+| **Triage_no** — an auto-receipt already in Monarch, an accepted calendar invite, a duplicate notification, a newsletter, an automated digest, or any item the classifier is confident requires no human action | Append a `[FILED-NO-ACTION]` line to `LOG.md` per the schema in TOOLS.md → LOG.md tag conventions. **Do NOT post to Slack** — the daily triage-digest covers it. | `slack-inbox/file-no-action` |
+| A task you can act on now | Complete it using available tools, then log what was done in `LOG.md` | (varies — see TOOLS.md) |
+| Ambiguous or unclear | Append to `LOG.md` tagged exactly as `[NEEDS-REVIEW]` with the original message and today's date | `slack-inbox/tag-needs-review` |
 
 **Filing rules:**
 - Always append — never overwrite
 - Every entry gets a date: `[YYYY-MM-DD]`
 - Ambiguous items must use the exact tag `[NEEDS-REVIEW]` so the weekly review job can find them
 - If a message could require sending an email, adding a calendar event, or any outbound action: log the intent in LOG.md tagged `[NEEDS-APPROVAL]` and do not act unilaterally
+- **Classifier confidence**: only emit `triage_no` when the message is clearly a no-action item. If confidence is ambiguous (the item could be triage_no OR a real shopping/school/helper/maintenance item), default to `[NEEDS-REVIEW]` — never auto-file as triage_no on uncertainty.
+
+**Acting on H5 actions (auto-apply with audit trail):**
+
+After classifying a message into a row above, look up the row's `Class` column in `workspace/TOOLS.md` → Action trust levels:
+
+- If the class is **H5**: perform the file append/edit AS WRITTEN, then append an `[AUTO-APPLIED]` line to `LOG.md` per the schema in TOOLS.md → LOG.md tag conventions. The originating Slack message ID becomes the `source:` field.
+- If the class is **H4**: perform the file append/edit AS WRITTEN (no proposal step — these are still log appends today), but write a regular dated entry in LOG.md instead of `[AUTO-APPLIED]`. The H4 baseline is preserved for classes whose ledger row signals "eligible for H5 promotion later."
+- If the class is **H4-forever** or the class is missing from the ledger: do NOT auto-file. Tag the LOG entry `[NEEDS-APPROVAL]` and surface for confirmation.
+
+**TOOLS.md unreadable fallback** (preserve pre-feature behavior):
+
+If `workspace/TOOLS.md` is missing, malformed, or its Action trust levels table cannot be parsed, use this embedded defaults table — these are the pre-feature defaults, NOT a forced H4 fallback:
+
+| Class | Embedded default |
+|---|---|
+| `slack-inbox/file-shopping-item` | H5 (auto-file; matches pre-feature behavior) |
+| `slack-inbox/file-school-notice` | H5 |
+| `slack-inbox/file-helper-log` | H5 |
+| `slack-inbox/file-home-maintenance` | H5 |
+| `slack-inbox/append-general-log` | H5 |
+| `slack-inbox/tag-needs-review` | H5 |
+| `slack-inbox/append-pending-asana` | H5 |
+| `slack-inbox/append-needs-approval` | H5 |
+| `slack-inbox/update-inbox-timestamp` | H5 |
+| `slack-inbox/file-no-action` | H4 (do NOT auto-emit triage_no without ledger; surface as [NEEDS-REVIEW] until ledger restored) |
+| any other class | H4 (propose) |
+
+Post a single Slack message to `#familyos`: `⚠️ TOOLS.md unreadable — running on embedded defaults until restored.` Continue the hourly run with embedded defaults; the daily morning brief will surface the issue separately if it persists.
 
 ---
 
@@ -41,7 +74,9 @@ After processing any new messages (even if there were none), scan LOG.md for ent
 
 If 1 or more stalled entries exist:
 
-1. Bundle them into a single Slack message posted to the household inbox channel. Format:
+1. Bundle them into a single Slack message posted to the household inbox channel.
+
+   **Multi-item bundle format** (≥2 stalled entries):
 
    ```
    📝 *PENDING-ASANA backlog — still waiting on confirmation*
@@ -50,7 +85,11 @@ If 1 or more stalled entries exist:
 
    1. **[Task title]** — [due date or "no due date"] — logged [YYYY-MM-DD]
    2. ...
+
+   audit ref: [YYYY-MM-DD] / slack-inbox/post-pending-asana-reminder
    ```
+
+   The `audit ref:` footer is required on every slack-inbox post — it lets the reaction-handler (see **Handling reverts and reactions**) trace back to the right action class.
 
 2. Post once per day at most — check LOG.md for a line matching `[YYYY-MM-DD] [PENDING-ASANA-REMINDER-SENT]` with today's date. If present, skip. Otherwise, after posting, append `[YYYY-MM-DD] [PENDING-ASANA-REMINDER-SENT]` to LOG.md so the same batch isn't re-sent within the same day.
 
@@ -75,6 +114,8 @@ When a Slack message matches `apply N`, `apply N,M`, `apply all`, or `skip` (cas
    ```
    ✅ Applied: 1 (school senders), 3 (USER.md Wed pickup)
    ⚠️ Manual setup needed: 2 (new scheduled task — Cowork → Scheduled)
+
+   audit ref: [YYYY-MM-DD] / slack-inbox/post-confirmation
    ```
-   For `skip`: `Skipped — no proposals applied this week.`
+   For `skip`: `Skipped — no proposals applied this week.` (followed by the same audit-ref footer.)
 5. Do not act on parts of the message that aren't apply directives. If the user mixed an apply directive with other content, only handle the apply portion and treat the rest as ambiguous (`[NEEDS-REVIEW]`).
