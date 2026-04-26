@@ -54,7 +54,7 @@ Generate a meal plan for the coming week (Monday through Sunday).
 2. Append the new ingredients to `resources/shopping/current-list.md` (class: `meal-planner/append-shopping-ingredients`)
 3. Mirror the newly added ingredients into Maple via Chrome MCP (class: `external/maple-push` — H4-forever, always confirm). `current-list.md` stays the source of truth — Maple is for shopping on the phone.
 
-If steps 1 and 2 are H5 in TOOLS.md (after a weekly-review promotion), perform them and emit `[AUTO-APPLIED]` LOG entries per the schema in TOOLS.md → LOG.md tag conventions. While they remain H4 baseline, perform them as today (no `[AUTO-APPLIED]` tag — they're already inside an explicit "After I approve" gate).
+For each ledger-rowed action above (steps 1 and 2), append an `[AUTO-APPLIED]` line to `LOG.md` per the schema in TOOLS.md → LOG.md tag conventions. Do this regardless of whether the class is H4 or H5 — the tag is an audit-trail record, not a "system acted unilaterally" marker. The class's H-level governs whether there was a propose-confirm gate (the meal-plan conversation itself, for H4) or not (H5 after promotion); the audit entry is uniform either way and feeds weekly-review's promotion counter.
 
    **How to push to Maple:**
    - Open `https://app.growmaple.com/` (the assistant chat works from the home page; the meal-plan page at `/mealplan` also has a chat).

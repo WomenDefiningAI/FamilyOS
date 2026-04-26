@@ -26,7 +26,7 @@ Output:
 **Action checklist** (Action needed today items only, as a short checklist):
 - [ ] ...
 
-After outputting, append any new dates or deadlines to `resources/school/notices.md` (class: `school-triage/append-notices`). If this class is H5 in TOOLS.md, also emit an `[AUTO-APPLIED]` LOG entry per the schema in TOOLS.md → LOG.md tag conventions.
+After outputting, append any new dates or deadlines to `resources/school/notices.md` (class: `school-triage/append-notices`). Emit an `[AUTO-APPLIED]` LOG entry per the schema in TOOLS.md → LOG.md tag conventions — the tag is the audit-trail record regardless of whether the class is H4 baseline or H5 (post-promotion), and it feeds weekly-review's promotion counter.
 Ask if any of the FYI items need to be logged or acted on.
 
 **Maple parallel forwarding:** Gmail-based triage above is the source of truth. Maple (`lovellwarner@mapleinbox.com`) runs in parallel — school senders should be auto-forwarded to that address via a Gmail filter, so Maple gets its own copy on the phone. If the user mentions an email is missing from Maple, check that the Gmail filter is still active on that sender. Do not re-triage from Maple; do not send anything to Maple from this skill.

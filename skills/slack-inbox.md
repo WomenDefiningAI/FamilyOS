@@ -43,7 +43,7 @@ For each new message, classify and file:
 After classifying a message into a row above, look up the row's `Class` column in `workspace/TOOLS.md` → Action trust levels:
 
 - If the class is **H5**: perform the file append/edit AS WRITTEN, then append an `[AUTO-APPLIED]` line to `LOG.md` per the schema in TOOLS.md → LOG.md tag conventions. The originating Slack message ID becomes the `source:` field.
-- If the class is **H4**: perform the file append/edit AS WRITTEN (no proposal step — these are still log appends today), but write a regular dated entry in LOG.md instead of `[AUTO-APPLIED]`. The H4 baseline is preserved for classes whose ledger row signals "eligible for H5 promotion later."
+- If the class is **H4**: same execution path — perform the file append/edit AS WRITTEN, then emit `[AUTO-APPLIED]`. Today, no slack-inbox classification falls into H4 (the seed makes all auto-firing slack-inbox classes H5). The H4 path here is reserved for future classes; current behavior is unchanged. The `[AUTO-APPLIED]` tag is uniform across H4 and H5 — it's an audit record of state change, not a "system acted unilaterally" flag. H-level governs whether a propose-confirm gate ran beforehand; the audit entry is the same either way and feeds weekly-review's promotion counter.
 - If the class is **H4-forever** or the class is missing from the ledger: do NOT auto-file. Tag the LOG entry `[NEEDS-APPROVAL]` and surface for confirmation.
 
 **TOOLS.md unreadable fallback** (preserve pre-feature behavior):
